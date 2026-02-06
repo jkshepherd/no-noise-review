@@ -10,54 +10,75 @@
   <body class="font-display antialiased">
     <div class="min-h-screen paper-grid">
       <header class="max-w-3xl mx-auto px-6 pt-10">
-        <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+        <div class="flex flex-col items-start gap-4">
           <div>
-            <p class="text-[11px] uppercase tracking-[0.3em] font-mono">{{SITE_TITLE}}</p>
-            <h1 class="text-xl md:text-2xl font-extrabold tracking-tight">Black & White Reviews</h1>
-            <p class="text-[11px] uppercase tracking-[0.25em] font-mono">Without the noise</p>
+            <h1 class="text-3xl sm:text-2xl font-extrabold tracking-tight">{{SITE_TITLE}}</h1>
+            <p class="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] font-mono">Black & White Reviews // without the noise</p>
           </div>
-          <div class="hidden sm:block stamp">Edition {{EDITION}}</div>
-          <nav class="flex flex-wrap items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] sm:gap-4">
-            <a class="border border-black px-3 py-1 hover:underline" href="../index.html">Latest</a>
-            <a class="border border-black px-3 py-1 hover:underline" href="../archive.html">Archive</a>
-            <a class="border border-black px-3 py-1 hover:underline" href="../about.html">About</a>
-          </nav>
+          <div class="mt-4">
+            <nav class="flex flex-wrap items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] sm:gap-4">
+              <a class="border border-black px-3 py-1 hover:underline" href="../index.html">Latest</a>
+              <a class="border border-black px-3 py-1 hover:underline" href="../archive.html">Archive</a>
+              <a class="border border-black px-3 py-1 hover:underline" href="../about.html">About</a>
+            </nav>
+          </div>
         </div>
       </header>
 
-      <hr class="rule-light max-w-3xl mx-auto" />
+      <hr class="rule-light max-w-3xl mx-6 sm:mx-auto" />
 
       <main class="max-w-3xl mx-auto px-6 pb-16">
         <a class="text-xs font-mono uppercase tracking-[0.2em] hover:underline" href="../archive.html">Back to Archive</a>
-        <article class="mt-12">
-          <header class="space-y-4">
-            <p class="font-mono text-[11px] uppercase tracking-[0.4em]">Edition {{EDITION}} — {{COMPETITION}} — {{VENUE}}</p>
-            <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">{{MATCH_TITLE}}</h2>
-            <p class="text-sm font-mono uppercase tracking-[0.2em]">{{DISPLAY_DATE}}</p>
+        <article class="mt-16">
+          <header class="space-y-5">
+            <p class="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.4em]">Edition {{EDITION}} — {{COMPETITION}} — {{VENUE}}</p>
+            <h2 class="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight">{{MATCH_TITLE}}</h2>
+            <p class="text-xs sm:text-sm font-mono uppercase tracking-[0.2em]">{{DISPLAY_DATE}}</p>
           </header>
-          <div class="mt-8 space-y-6 text-lg leading-relaxed print-body">
+          <div class="mt-10 space-y-6 text-lg leading-relaxed print-body">
             {{BODY_PARAGRAPHS}}
           </div>
-          <div class="mt-10 space-y-6 text-sm font-mono uppercase tracking-[0.2em]">
-            <div class="space-y-2">
-              <p class="text-[10px] tracking-[0.35em] text-neutral-600 font-semibold">Goalscorers</p>
+          <div class="mt-12 space-y-4 text-base leading-relaxed">
+            <div class="space-y-1">
+              <p><strong>Goalscorers</strong></p>
               <p>{{GOALSCORERS_HOME}}</p>
               <p>{{GOALSCORERS_AWAY}}</p>
             </div>
-            <div class="space-y-2">
-              <p class="text-[10px] tracking-[0.35em] text-neutral-600 font-semibold">Player of the Match</p>
+            <div class="space-y-1">
+              <p><strong>Player of the Match</strong></p>
               <p>{{PLAYER_OF_MATCH}}</p>
             </div>
           </div>
         </article>
       </main>
 
-      <hr class="rule-light max-w-3xl mx-auto" />
+      <hr class="rule-light max-w-3xl mx-6 sm:mx-auto" />
 
       <footer class="py-6">
         <div class="max-w-3xl mx-auto px-6">
           <p class="font-mono text-[11px] uppercase tracking-[0.3em]">{{SITE_TITLE}} • Edition {{EDITION}}</p>
-          <p class="meta-line mt-2">Printed in Newcastle • {{PRINT_DATE}} • ISSN {{EDITION}}-NUFC</p>
+          <p class="meta-line mt-2">A No Noise Review • Printed in Newcastle</p>
+          <div class="mt-4 flex items-center gap-3 pb-6 text-neutral-600">
+            <a class="inline-flex h-7 w-7 items-center justify-center border border-black sm:h-8 sm:w-8" href="#" aria-label="X">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="currentColor" aria-hidden="true">
+                <path d="M7 5h2.3l4.1 5.5L18 5h2l-5.2 7 5.7 7.9h-2.3l-4.4-6L8.6 20H6.6l5.5-7.3L7 5z" />
+              </svg>
+            </a>
+            <a class="inline-flex h-7 w-7 items-center justify-center border border-black sm:h-8 sm:w-8" href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="4" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17" cy="7" r="1.2" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+            <a class="inline-flex h-7 w-7 items-center justify-center border border-black sm:h-8 sm:w-8" href="#" aria-label="RSS">
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <circle cx="6" cy="18" r="1.6" fill="currentColor" stroke="none" />
+                <path d="M5 11a8 8 0 0 1 8 8" />
+                <path d="M5 5a14 14 0 0 1 14 14" />
+              </svg>
+            </a>
+          </div>
         </div>
       </footer>
     </div>

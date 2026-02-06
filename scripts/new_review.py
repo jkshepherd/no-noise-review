@@ -69,7 +69,6 @@ def _write_review_page(values: dict) -> Path:
         "{{GOALSCORERS_HOME}}": values["goalscorers_home"],
         "{{GOALSCORERS_AWAY}}": values["goalscorers_away"],
         "{{PLAYER_OF_MATCH}}": values["player_of_match"],
-        "{{PRINT_DATE}}": values["print_date"],
     }
 
     for key, value in replacements.items():
@@ -90,23 +89,23 @@ def _replace_block(text: str, start: str, end: str, new_block: str) -> str:
 def _update_index(values: dict) -> None:
     index = INDEX_PATH.read_text(encoding="utf-8")
 
-    article_html = f"""<article id=\"latest\" class=\"mt-12\">
-          <header class=\"space-y-4\">
-            <p class=\"font-mono text-[11px] uppercase tracking-[0.4em]\">Edition {values['edition']} — {values['competition']} — {values['venue']}</p>
-            <h2 class=\"text-4xl md:text-5xl font-extrabold leading-tight\">{values['match_title']}</h2>
-            <p class=\"text-sm font-mono uppercase tracking-[0.2em]\">{values['display_date']}</p>
+    article_html = f"""<article id=\"latest\" class=\"mt-16\">
+          <header class=\"space-y-5\">
+            <p class=\"font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.4em]\">Edition {values['edition']} — {values['competition']} — {values['venue']}</p>
+            <h2 class=\"text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight\">{values['match_title']}</h2>
+            <p class=\"text-xs sm:text-sm font-mono uppercase tracking-[0.2em]\">{values['display_date']}</p>
           </header>
-          <div class=\"mt-8 space-y-6 text-lg leading-relaxed print-body\">
+          <div class=\"mt-10 space-y-6 text-lg leading-relaxed print-body\">
             {"".join([f"<p>{p}</p>" for p in values['paragraphs']])}
           </div>
-          <div class=\"mt-10 space-y-6 text-sm font-mono uppercase tracking-[0.2em]\">
-            <div class=\"space-y-2\">
-              <p class=\"text-[10px] tracking-[0.35em] text-neutral-600 font-semibold\">Goalscorers</p>
+          <div class=\"mt-12 space-y-4 text-base leading-relaxed\">
+            <div class=\"space-y-1\">
+              <p><strong>Goalscorers</strong></p>
               <p>{values['goalscorers_home']}</p>
               <p>{values['goalscorers_away']}</p>
             </div>
-            <div class=\"space-y-2\">
-              <p class=\"text-[10px] tracking-[0.35em] text-neutral-600 font-semibold\">Player of the Match</p>
+            <div class=\"space-y-1\">
+              <p><strong>Player of the Match</strong></p>
               <p>{values['player_of_match']}</p>
             </div>
           </div>
@@ -122,20 +121,8 @@ def _update_index(values: dict) -> None:
     )
 
     index = re.sub(
-        r"<div class=\"hidden sm:block stamp\">Edition .*?</div>",
-        f"<div class=\"hidden sm:block stamp\">Edition {values['edition']}</div>",
-        index,
-    )
-
-    index = re.sub(
         r"St\. James’ Dispatch • Edition .*?</p>",
         f"{SITE_TITLE} • Edition {values['edition']}</p>",
-        index,
-    )
-
-    index = re.sub(
-        r"Printed in Newcastle • .*? • ISSN .*?</p>",
-        f"Printed in Newcastle • {values['print_date']} • ISSN {values['edition']}-NUFC</p>",
         index,
     )
 
@@ -146,9 +133,10 @@ def _update_archive(values: dict) -> None:
     archive = ARCHIVE_PATH.read_text(encoding="utf-8")
 
     list_html = f"""<ul class=\"mt-4 space-y-3 text-sm leading-relaxed\">
-                <li>
-                  <span class=\"font-mono uppercase tracking-[0.2em]\">{values['display_date']}</span> —
-                  <a class=\"hover:underline\" href=\"reviews/{values['date_slug']}.html\">{values['match_title']}</a>
+                <li class=\"group flex flex-wrap items-baseline gap-2 px-2 py-1 -mx-2 border-b border-transparent hover:border-black/20 hover:bg-black/[0.03] transition\">
+                  <span class=\"font-mono uppercase tracking-[0.2em] text-neutral-600\">{values['display_date']}</span>
+                  <span class=\"text-neutral-400\">—</span>
+                  <a class=\"font-semibold\" href=\"reviews/{values['date_slug']}.html\">{values['match_title']}</a>
                 </li>
               </ul>"""
 
@@ -165,7 +153,7 @@ def main() -> None:
     match_title = _prompt("Match title (e.g., Man City 3–1 Newcastle United)")
     display_date = _prompt("Display date (e.g., February 4, 2026)")
     date_slug = _prompt("Date slug (YYYY-MM-DD)")
-    print_date = _prompt("Print date", today)
+    _ = _prompt("Print date", today)  # kept for compatibility; no longer used in footer
     goalscorers_home = _prompt("Goalscorers home line (e.g., Man City: ...)")
     goalscorers_away = _prompt("Goalscorers away line (e.g., Newcastle United: ...)")
     player_of_match = _prompt("Player of the Match")
@@ -181,7 +169,6 @@ def main() -> None:
         "match_title": match_title,
         "display_date": display_date,
         "date_slug": date_slug,
-        "print_date": print_date,
         "goalscorers_home": goalscorers_home,
         "goalscorers_away": goalscorers_away,
         "player_of_match": player_of_match,
