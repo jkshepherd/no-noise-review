@@ -132,16 +132,32 @@ def _update_index(values: dict) -> None:
 def _update_archive(values: dict) -> None:
     archive = ARCHIVE_PATH.read_text(encoding="utf-8")
 
-    list_html = f"""<ul class=\"mt-4 space-y-3 text-sm leading-relaxed\">
-                <li class=\"group flex flex-wrap items-baseline gap-2 px-2 py-1 -mx-2 border-b border-transparent hover:border-black/20 hover:bg-black/[0.03] transition\">
-                  <span class=\"font-mono uppercase tracking-[0.2em] text-neutral-600\">{values['display_date']}</span>
-                  <span class=\"text-neutral-400\">—</span>
-                  <a class=\"font-semibold\" href=\"reviews/{values['date_slug']}.html\">{values['match_title']}</a>
-                </li>
-              </ul>"""
+    new_item = f"""                <li class="group flex flex-wrap items-baseline gap-2 px-2 py-1 -mx-2 border-b border-transparent hover:border-black/20 hover:bg-black/[0.03] transition">
+                  <span class="font-mono uppercase tracking-[0.2em] text-neutral-600">{values['display_date']}</span>
+                  <span class="text-neutral-400">—</span>
+                  <a class="font-semibold" href="reviews/{values['date_slug']}.html">{values['match_title']}</a>
+                </li>"""
 
-    archive = _replace_block(archive, ARCHIVE_START, ARCHIVE_END, list_html)
+    block_pattern = re.compile(re.escape(ARCHIVE_START) + r"(.*?)" + re.escape(ARCHIVE_END), re.DOTALL)
+    match = block_pattern.search(archive)
+    if not match:
+        raise ValueError(f"Missing marker block: {ARCHIVE_START} ... {ARCHIVE_END}")
+
+    block = match.group(1)
+    ul_match = re.search(r"<ul[^>]*>\s*", block)
+    if not ul_match:
+        raise ValueError("Archive list <ul> not found inside marker block.")
+
+    if values["date_slug"] in block or values["match_title"] in block:
+        print("Archive already contains this match; skipping append.")
+        return
+
+    insert_pos = ul_match.end()
+    updated_block = block[:insert_pos] + "\n" + new_item + block[insert_pos:]
+
+    archive = block_pattern.sub(f"{ARCHIVE_START}{updated_block}{ARCHIVE_END}", archive)
     ARCHIVE_PATH.write_text(archive, encoding="utf-8")
+
 
 
 def main() -> None:
