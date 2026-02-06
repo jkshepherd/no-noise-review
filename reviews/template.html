@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{SITE_TITLE}} — {{MATCH_TITLE}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="font-display antialiased">
+    <div class="min-h-screen paper-grid">
+      <header class="max-w-3xl mx-auto px-6 pt-10">
+        <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.3em] font-mono">{{SITE_TITLE}}</p>
+            <h1 class="text-xl md:text-2xl font-extrabold tracking-tight">Black & White Reviews</h1>
+            <p class="text-[11px] uppercase tracking-[0.25em] font-mono">Without the noise</p>
+          </div>
+          <div class="hidden sm:block stamp">Edition {{EDITION}}</div>
+          <nav class="flex flex-wrap items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] sm:gap-4">
+            <a class="border border-black px-3 py-1 hover:underline" href="../index.html">Latest</a>
+            <a class="border border-black px-3 py-1 hover:underline" href="../archive.html">Archive</a>
+            <a class="border border-black px-3 py-1 hover:underline" href="../about.html">About</a>
+          </nav>
+        </div>
+      </header>
+
+      <hr class="rule-light max-w-3xl mx-auto" />
+
+      <main class="max-w-3xl mx-auto px-6 pb-16">
+        <a class="text-xs font-mono uppercase tracking-[0.2em] hover:underline" href="../archive.html">Back to Archive</a>
+        <article class="mt-12">
+          <header class="space-y-4">
+            <p class="font-mono text-[11px] uppercase tracking-[0.4em]">Edition {{EDITION}} — {{COMPETITION}} — {{VENUE}}</p>
+            <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">{{MATCH_TITLE}}</h2>
+            <p class="text-sm font-mono uppercase tracking-[0.2em]">{{DISPLAY_DATE}}</p>
+          </header>
+          <div class="mt-8 space-y-6 text-lg leading-relaxed print-body">
+            {{BODY_PARAGRAPHS}}
+          </div>
+          <div class="mt-10 space-y-6 text-sm font-mono uppercase tracking-[0.2em]">
+            <div class="space-y-2">
+              <p class="text-[10px] tracking-[0.35em] text-neutral-600 font-semibold">Goalscorers</p>
+              <p>{{GOALSCORERS_HOME}}</p>
+              <p>{{GOALSCORERS_AWAY}}</p>
+            </div>
+            <div class="space-y-2">
+              <p class="text-[10px] tracking-[0.35em] text-neutral-600 font-semibold">Player of the Match</p>
+              <p>{{PLAYER_OF_MATCH}}</p>
+            </div>
+          </div>
+        </article>
+      </main>
+
+      <hr class="rule-light max-w-3xl mx-auto" />
+
+      <footer class="py-6">
+        <div class="max-w-3xl mx-auto px-6">
+          <p class="font-mono text-[11px] uppercase tracking-[0.3em]">{{SITE_TITLE}} • Edition {{EDITION}}</p>
+          <p class="meta-line mt-2">Printed in Newcastle • {{PRINT_DATE}} • ISSN {{EDITION}}-NUFC</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
